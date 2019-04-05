@@ -115,7 +115,8 @@ public class TankClient extends Frame {
 		this.setResizable(false);
 		this.addKeyListener(new KeyMonitor());
 		setVisible(true);//调用paint
-		new Thread(new PaintThread()).run();//又开了一个线程
+		myTank.start();
+		new Thread(new PaintThread()).start();//又开了一个线程
 	}
 		
 	public static void main(String[] args) {//一个线程

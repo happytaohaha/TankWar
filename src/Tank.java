@@ -12,7 +12,7 @@ import java.util.Random;
  * @author 严涛
  *
  */
-public class Tank {
+public class Tank extends Thread {
 	public static final int SPEEDX = 5;
 	public static final int SPEEDY = 5;
 	public static final int WIDTH = 30;
@@ -62,6 +62,30 @@ public class Tank {
 		this.tc =tc;
 		this.dir = dir;
 	}
+
+	private int lL = 0,lU = 0 ,lD = 0, lR = 0;
+	@Override
+	public void run() {
+		while (live){
+
+			try {
+				//如果没有检测到鼠标抬起事件他还会走一秒，然后停止
+				//解决了鼠标抬起事件多按键点击栈溢出，一个方向行走不会停止的问题
+				lL -=500;
+				if(lL<0){
+					bL = false;
+					bU = false;
+					bD = false;
+					bR = false;
+				}
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+
 	//坦克来画自己
 	public void draw(Graphics g) {
 		if(!live) {
@@ -166,21 +190,26 @@ public class Tank {
 		}
 		
 	}
+
 	//坦克被按键按下的反应
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		switch(key) {
 			
 			case KeyEvent.VK_LEFT:
+				lL= 1000;
 				bL = true;
 				break;
 			case KeyEvent.VK_RIGHT:
+				lL= 1000;
 				bR = true;
 				break;
 			case KeyEvent.VK_UP:
+				lL= 1000;
 				bU = true;
 				break;
 			case KeyEvent.VK_DOWN:
+				lL= 1000;
 				bD = true;
 				break;
 			default:
