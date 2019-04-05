@@ -31,4 +31,5 @@
 |点出去|按方向走后停住|17|
 |乱点|没反应|18|
 软件结构<br>
-待续<br>
+逻辑图：<br>
+![Tank](document/images/logic.png)
